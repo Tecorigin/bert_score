@@ -43,7 +43,6 @@ class BERTScorer:
                       `model_type` or `lang`
             - :param: `num_layers` (int): the layer of representation to use.
                       default using the number of layer tuned on WMT16 correlation data
-            - :param: `verbose` (bool): turn on intermediate status update
             - :param: `idf` (bool): a booling to specify whether to use idf or not (this should be True even if `idf_sents` is given)
             - :param: `idf_sents` (List of str): list of sentences used to compute the idf weights
             - :param: `device` (str): on which the contextual embedding model will be allocated on.
@@ -53,7 +52,6 @@ class BERTScorer:
             - :param: `lang` (str): language of the sentences; has to specify
                       at least one of `model_type` or `lang`. `lang` needs to be
                       specified when `rescale_with_baseline` is True.
-            - :param: `return_hash` (bool): return hash code of the setting
             - :param: `rescale_with_baseline` (bool): rescale bertscore with pre-computed baseline
             - :param: `baseline_path` (str): customized baseline file
             - :param: `use_fast_tokenizer` (bool): `use_fast` parameter passed to HF tokenizer
