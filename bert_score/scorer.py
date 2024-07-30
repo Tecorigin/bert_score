@@ -1,6 +1,5 @@
 import os
-import pathlib
-import sys
+
 import time
 import warnings
 from collections import defaultdict
@@ -179,7 +178,7 @@ class BERTScorer:
 
         self._idf_dict = get_idf_dict(sents, self._tokenizer, nthreads=self.nthreads)
 
-    def score(self, cands, refs, verbose=False, batch_size=64, return_hash=False):
+    def score(self, cands, refs, verbose=False, batch_size=None, return_hash=False):
         """
         Args:
             - :param: `cands` (list of str): candidate sentences
@@ -216,6 +215,9 @@ class BERTScorer:
             idf_dict = defaultdict(lambda: 1.0)
             idf_dict[self._tokenizer.sep_token_id] = 0
             idf_dict[self._tokenizer.cls_token_id] = 0
+
+        if batch_size is None:
+            batch_size = self.batch_size
 
         all_preds = bert_cos_score_idf(
             self._model,
