@@ -231,6 +231,7 @@ Some weights of the model checkpoint at roberta-large were not used when initial
 | en-sci    | allenai/scibert_scivocab_uncased |
 | zh        | bert-base-chinese                |
 | tr        | dbmdz/bert-base-turkish-cased    |
+| ko        | kykim/bert-kor-base              |
 | others    | bert-base-multilingual-cased     |
 
 #### Default Layers
