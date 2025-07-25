@@ -197,9 +197,9 @@ class TestScore(unittest.TestCase, CustomAssertions):
         )
         self.assertAreTensors(P_mul, R_mul, F_mul)
 
-    @unittest.skip(
-        "temporary disabled along with commented model 'scibert-scivocab-uncased' in utils.model2layers"
-    )
+    # @unittest.skip(
+        # "temporary disabled along with commented model 'scibert-scivocab-uncased' in utils.model2layers"
+    # )
     def test_score_en_sci(self):
         (P, R, F), hash_code = bert_score.score(
             cands, refs, lang="en-sci", return_hash=True
@@ -212,7 +212,7 @@ class TestScore(unittest.TestCase, CustomAssertions):
 
         self.assertEqual(
             hash_code,
-            f"scibert-scivocab-uncased_L8_no-idf_version={bert_score.__version__}(hug_trans={ht_version})",
+            f"allenai/scibert_scivocab_uncased_L8_no-idf_version={bert_score.__version__}(hug_trans={ht_version})",
         )
 
 

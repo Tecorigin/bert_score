@@ -49,7 +49,7 @@ def score(
         - :param: `verbose` (bool): turn on intermediate status update
         - :param: `idf` (bool or dict): use idf weighting, can also be a precomputed idf_dict
         - :param: `device` (str): on which the contextual embedding model will be allocated on.
-                  If this argument is None, the model lives on cuda:0 if cuda is available.
+                  If this argument is None, the model lives on sdaa:0 if sdaa is available.
         - :param: `nthreads` (int): number of threads
         - :param: `batch_size` (int): bert score processing batch size
         - :param: `lang` (str): language of the sentences; has to specify
@@ -97,7 +97,12 @@ def score(
     tokenizer = get_tokenizer(model_type, use_fast_tokenizer)
     model = get_model(model_type, num_layers, all_layers)
     if device is None:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        if torch.cuda.is_available():
+            device = "cuda"
+        elif torch.sdaa.is_available():
+            device = "sdaa"
+        else:
+            device = "cpu"
     model.to(device)
 
     if not idf:
@@ -237,7 +242,12 @@ def plot_example(
 
     tokenizer = get_tokenizer(model_type, use_fast_tokenizer)
     model = get_model(model_type, num_layers)
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    if torch.cuda.is_available():
+        device = "cuda"
+    elif torch.sdaa.is_available():
+        device = "sdaa"
+    else:
+        device = "cpu"
     model.to(device)
 
     idf_dict = defaultdict(lambda: 1.0)

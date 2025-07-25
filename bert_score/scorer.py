@@ -48,7 +48,7 @@ class BERTScorer:
             - :param: `idf` (bool): a booling to specify whether to use idf or not (this should be True even if `idf_sents` is given)
             - :param: `idf_sents` (List of str): list of sentences used to compute the idf weights
             - :param: `device` (str): on which the contextual embedding model will be allocated on.
-                      If this argument is None, the model lives on cuda:0 if cuda is available.
+                      If this argument is None, the model lives on sdaa:0 if sdaa is available.
             - :param: `batch_size` (int): bert score processing batch size
             - :param: `nthreads` (int): number of threads
             - :param: `lang` (str): language of the sentences; has to specify
@@ -70,7 +70,12 @@ class BERTScorer:
             ), "Need to specify Language when rescaling with baseline"
 
         if device is None:
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
+            if torch.cuda.is_available():
+                self.device = "cuda"
+            elif torch.sdaa.is_available():
+                self.device = "sdaa"
+            else:
+                self.device = "cpu"
         else:
             self.device = device
 

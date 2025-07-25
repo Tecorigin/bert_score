@@ -390,7 +390,7 @@ def get_idf_dict(arr, tokenizer, nthreads=4):
     return idf_dict
 
 
-def collate_idf(arr, tokenizer, idf_dict, device="cuda:0"):
+def collate_idf(arr, tokenizer, idf_dict, device="sdaa:0"):
     """
     Helper function that pads a list of sentences to hvae the same length and
     loads idf score for words in the sentences.
@@ -404,7 +404,7 @@ def collate_idf(arr, tokenizer, idf_dict, device="cuda:0"):
         - :param: `idf_dict` (dict): mapping a word piece index to its
                                inverse document frequency
         - :param: `pad` (str): the padding token.
-        - :param: `device` (str): device to use, e.g. 'cpu' or 'cuda'
+        - :param: `device` (str): device to use, e.g. 'cpu' or 'sdaa'
     """
     arr = [sent_encode(tokenizer, a) for a in arr]
 
@@ -427,7 +427,7 @@ def get_bert_embedding(
     tokenizer,
     idf_dict,
     batch_size=-1,
-    device="cuda:0",
+    device="sdaa:0",
     all_layers=False,
 ):
     """
@@ -439,7 +439,7 @@ def get_bert_embedding(
         - :param: `tokenizer` : a BERT tokenizer corresponds to `model`.
         - :param: `idf_dict` (dict) : mapping a word piece index to its
                                inverse document frequency
-        - :param: `device` (str): device to use, e.g. 'cpu' or 'cuda'
+        - :param: `device` (str): device to use, e.g. 'cpu' or 'sdaa'
     """
 
     padded_sens, padded_idf, lens, mask = collate_idf(
@@ -582,7 +582,7 @@ def bert_cos_score_idf(
     idf_dict,
     verbose=False,
     batch_size=64,
-    device="cuda:0",
+    device="sdaa:0",
     all_layers=False,
 ):
     """
@@ -597,7 +597,7 @@ def bert_cos_score_idf(
                                inverse document frequency
         - :param: `verbose` (bool): turn on intermediate status update
         - :param: `batch_size` (int): bert score processing batch size
-        - :param: `device` (str): device to use, e.g. 'cpu' or 'cuda'
+        - :param: `device` (str): device to use, e.g. 'cpu' or 'sdaa'
     """
     preds = []
 
